@@ -94,4 +94,4 @@ class TokenData(BaseModel):
 
 class WalletPnlResponse(BaseModel):
     meta: PnlMeta = None
-    tokens: Dict[str, TokenData]
+    tokens: Optional[Dict[str, TokenData]] = None
