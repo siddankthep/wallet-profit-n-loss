@@ -1,16 +1,14 @@
 from typing import Optional
 import httpx
-import os
-from dotenv import load_dotenv
 from src.models import WalletPnlResponse, WalletPortfolio, NetWorthResponse
 import pprint
+import streamlit as st
 
-load_dotenv()
 
 BASE_URL = "https://public-api.birdeye.so"
 HEADERS = {
     "accept": "application/json",
-    "x-api-key": os.getenv("BIRDEYE_API_KEY"),
+    "x-api-key": st.secrets["BIRDEYE_API_KEY"],
     "chain": "solana",
 }
 

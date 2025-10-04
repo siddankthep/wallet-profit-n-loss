@@ -11,3 +11,5 @@ wheels/
 
 *.env
 *.csv
+
+.streamlit/secrets.toml
