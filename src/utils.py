@@ -31,7 +31,6 @@ def display_net_worth(net_worth: NetWorthResponse):
 
     # Create DataFrame for charting
     df = pd.DataFrame({"Timestamp": timestamps, "Net Worth (USD)": values})
-    df.to_csv("net_worth.csv", index=False)
 
     df["Timestamp"] = pd.to_datetime(df["Timestamp"])
     df = df.sort_values("Timestamp")
