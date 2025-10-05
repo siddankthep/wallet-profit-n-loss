@@ -144,7 +144,7 @@ def display_pnl(pnl: WalletPnlResponse):
             st.caption(row["Token Address"])
             k1, k2 = st.columns(2)
             k1.metric("Current Value", f"${row['Current Value']:,.2f}")
-            k2.metric("Holding", f"{row['Holding']:.4f}")
+            k2.metric("Holding", f"${row['Holding']:,.2f}")
 
             # Mini comparison chart (invested vs current)
             mini = pd.DataFrame(
