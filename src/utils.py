@@ -43,7 +43,16 @@ def display_net_worth(net_worth: NetWorthResponse):
         alt.Chart(df)
         .mark_line(point=True)
         .encode(
-            x=alt.X("Timestamp:T", title="Timestamp"),
+            x=alt.X(
+                "Timestamp:T",
+                title="Timestamp",
+                axis=alt.Axis(
+                    format="%b %d",
+                    labelAngle=-45,  # rotate
+                    labelAlign="right",  # align text with the tick
+                    labelBaseline="top",  # baseline for angled labels
+                ),
+            ),
             y=alt.Y(
                 "Net Worth (USD):Q",
                 title="Net Worth (USD)",
@@ -56,6 +65,7 @@ def display_net_worth(net_worth: NetWorthResponse):
         )
         .properties(height=300)
     )
+    # chart = chart.interactive()
 
     st.altair_chart(chart, use_container_width=True)
 
@@ -147,7 +157,7 @@ def display_pnl(pnl: WalletPnlResponse):
                 alt.Chart(mini)
                 .mark_bar()
                 .encode(
-                    x=alt.X("Label:N", title=None),
+                    x=alt.X("Label:N", title=None, axis=alt.Axis(labelAngle=0)),
                     y=alt.Y("USD:Q", title="USD"),
                     tooltip=[alt.Tooltip("Label:N"), alt.Tooltip("USD:Q", format="$.2f")],
                 )
