@@ -13,41 +13,6 @@ HEADERS = {
 }
 
 
-async def get_pnl(wallet_address: str, token_addresses: list[str]):
-    url = f"{BASE_URL}/wallet/v2/pnl"
-    params = {
-        "wallet": wallet_address,
-        "token_addresses": ",".join(token_addresses),
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, params=params, headers=HEADERS)
-        data = response.json()
-
-        print("PNL DATA")
-        pprint.pprint(data)
-        if response.status_code == 200:
-            return WalletPnlResponse(**data.get("data"))
-        else:
-            raise Exception(data.get("message"))
-
-
-async def get_wallet_portfolio(wallet_address: str):
-    url = f"{BASE_URL}/v1/wallet/token_list"
-    params = {
-        "wallet": wallet_address,
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, params=params, headers=HEADERS)
-        data = response.json()
-
-        print("PORTFOLIO DATA")
-        pprint.pprint(data)
-        if data.get("success"):
-            return WalletPortfolio(**data.get("data"))
-        else:
-            raise Exception(data.get("message"))
-
-
 async def get_net_worth(
     wallet_address: str,
     sort_type: str,
@@ -83,5 +48,40 @@ async def get_net_worth(
         pprint.pprint(data)
         if data.get("success"):
             return NetWorthResponse(**data.get("data"))
+        else:
+            raise Exception(data.get("message"))
+
+
+async def get_wallet_portfolio(wallet_address: str):
+    url = f"{BASE_URL}/v1/wallet/token_list"
+    params = {
+        "wallet": wallet_address,
+    }
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url, params=params, headers=HEADERS)
+        data = response.json()
+
+        print("PORTFOLIO DATA")
+        pprint.pprint(data)
+        if data.get("success"):
+            return WalletPortfolio(**data.get("data"))
+        else:
+            raise Exception(data.get("message"))
+
+
+async def get_pnl(wallet_address: str, token_addresses: list[str]):
+    url = f"{BASE_URL}/wallet/v2/pnl"
+    params = {
+        "wallet": wallet_address,
+        "token_addresses": ",".join(token_addresses),
+    }
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url, params=params, headers=HEADERS)
+        data = response.json()
+
+        print("PNL DATA")
+        pprint.pprint(data)
+        if response.status_code == 200:
+            return WalletPnlResponse(**data.get("data"))
         else:
             raise Exception(data.get("message"))
